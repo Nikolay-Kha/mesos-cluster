@@ -15,5 +15,9 @@ OS=centos make start
 ```
 that will build base image based on centos and start cluster. Default OS is ubuntu. List of all aviliable OSes in `docker` dir (extensions of Dockerfiles).
 
+# Default hosts and ports
+Zookeeper server - zk://172.16.200.11:2181  
+Mesos master web interface - http://172.16.200.21:5050  
+
 # Adding base image with new OS
 Create new file in 'docker' dir named `Dockerfile.osname` and implement Dockerfile for this OS using existing examples.
