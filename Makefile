@@ -8,8 +8,9 @@ all:
 	docker build -t ${DOCKER_IMAGE_NAME} -f ${PWD}/docker/Dockerfile.${OS} ${PWD}/docker
 
 clean:
+	docker ps -a | grep erl_mesos_ | awk '{print $$1}' | xargs -I {} docker rm -f {}
 	docker rmi -f ${DOCKER_IMAGE_NAME} | true
-	docker network rm erlmesoscluster_app_net | true
+	docker network rm mesoscluster_app_net | true
 
 start: all
 	docker-compose -f ${PWD}/cluster.yml up -d

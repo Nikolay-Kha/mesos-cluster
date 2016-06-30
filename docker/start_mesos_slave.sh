@@ -23,4 +23,4 @@ if [[ "${MESOS_MASTER}" ]]; then
     PARAMS="${PARAMS} --master=${MESOS_MASTER}"
 fi
 
-${SLAVE_PATH} ${PARAMS}
+${SLAVE_PATH} ${PARAMS} --no-systemd_enable_support
