@@ -8,6 +8,7 @@ Use 'make' command with following targets:
 * start - run cluster, if base image isn't built, it will be built 
 * stop - stop cluster
 * restart - restart cluster
+* test - run simple healthy test on running cluster
 
 To choose which operation system should be used in base image, use OS env. Example:
 ```
