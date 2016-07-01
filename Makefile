@@ -21,3 +21,20 @@ stop:
 
 restart: stop start
 
+test:
+	@echo Running basic cluster test
+	@echo -n Test zookeepers nodes...
+	@nc -z 172.16.200.11 2181
+	@nc -z 172.16.200.12 2181
+	@nc -z 172.16.200.13 2181
+	@echo ok
+	@echo -n Test mesos master nodes...
+	@curl http://172.16.200.21:5050/health
+	@curl http://172.16.200.22:5050/health
+	@curl http://172.16.200.23:5050/health
+	@echo ok
+	@echo -n Test mesos slave nodes...
+	@curl http://172.16.200.31:5051/health
+	@echo ok
+	@echo Cluster successfully passed tests
+
