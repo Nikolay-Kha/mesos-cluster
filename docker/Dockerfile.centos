@@ -20,7 +20,7 @@ RUN OS_VERSION=$(rpm -q --queryformat '%{VERSION}' centos-release) && \
     yum install -q -y mesosphere-zookeeper mesos-${MESOS_BUILD_VERSION}
 
 # Install ifconfig
-RUN yum install net-tools
+RUN yum install -q -y net-tools
 
 ### Create symlinks for compability
 RUN ln -s /opt/mesosphere/zookeeper /usr/share/zookeeper
