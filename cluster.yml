@@ -1,14 +1,33 @@
 version: '2'
 
 services:
-    erl_mesos_zk:
+    erl_mesos_zk_1:
         image: mesos_cluster_node
-        container_name: erl_mesos_zk
+        container_name: erl_mesos_zk_1
         environment:
             - NODE_MODE=zk
+            - MESOS_ZK=zk://172.16.200.11:2181,172.16.200.12:2181,172.16.200.13:2181/mesos
         networks:
             app_net:
                 ipv4_address: 172.16.200.11
+    erl_mesos_zk_2:
+        image: mesos_cluster_node
+        container_name: erl_mesos_zk_2
+        environment:
+            - NODE_MODE=zk
+            - MESOS_ZK=zk://172.16.200.11:2181,172.16.200.12:2181,172.16.200.13:2181/mesos
+        networks:
+            app_net:
+                ipv4_address: 172.16.200.12
+    erl_mesos_zk_3:
+        image: mesos_cluster_node
+        container_name: erl_mesos_zk_3
+        environment:
+            - NODE_MODE=zk
+            - MESOS_ZK=zk://172.16.200.11:2181,172.16.200.12:2181,172.16.200.13:2181/mesos
+        networks:
+            app_net:
+                ipv4_address: 172.16.200.13
     erl_mesos_master_1:
         image: mesos_cluster_node
         environment:
@@ -16,7 +35,7 @@ services:
             - MESOS_IP=172.16.200.21
             - MESOS_HOSTNAME=172.16.200.21
             - MESOS_QUORUM=2
-            - MESOS_ZK=zk://172.16.200.11:2181/mesos
+            - MESOS_ZK=zk://172.16.200.11:2181,172.16.200.12:2181,172.16.200.13:2181/mesos
         container_name: erl_mesos_master_1
         networks:
             app_net:
@@ -28,7 +47,7 @@ services:
             - MESOS_IP=172.16.200.22
             - MESOS_HOSTNAME=172.16.200.22
             - MESOS_QUORUM=2
-            - MESOS_ZK=zk://172.16.200.11:2181/mesos
+            - MESOS_ZK=zk://172.16.200.11:2181,172.16.200.12:2181,172.16.200.13:2181/mesos
         container_name: erl_mesos_master_2
         networks:
             app_net:
@@ -40,7 +59,7 @@ services:
             - MESOS_IP=172.16.200.23
             - MESOS_HOSTNAME=172.16.200.23
             - MESOS_QUORUM=2
-            - MESOS_ZK=zk://172.16.200.11:2181/mesos
+            - MESOS_ZK=zk://172.16.200.11:2181,172.16.200.12:2181,172.16.200.13:2181/mesos
         container_name: erl_mesos_master_3
         networks:
             app_net:
@@ -51,7 +70,7 @@ services:
             - NODE_MODE=mesos_slave
             - MESOS_IP=172.16.200.31
             - MESOS_HOSTNAME=172.16.200.31
-            - MESOS_MASTER=zk://172.16.200.11:2181/mesos
+            - MESOS_MASTER=zk://172.16.200.11:2181,172.16.200.12:2181,172.16.200.13:2181/mesos
         container_name: erl_mesos_slave
         volumes:
             - /sys/fs/cgroup:/sys/fs/cgroup 

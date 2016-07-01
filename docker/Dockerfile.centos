@@ -19,6 +19,9 @@ RUN OS_VERSION=$(rpm -q --queryformat '%{VERSION}' centos-release) && \
     rpm -Uvh http://repos.mesosphere.io/el/${OS_VERSION}/noarch/RPMS/mesosphere-el-repo-${OS_VERSION}-1.noarch.rpm && \
     yum install -q -y mesosphere-zookeeper mesos-${MESOS_BUILD_VERSION}
 
+# Install ifconfig
+RUN yum install net-tools
+
 ### Create symlinks for compability
 RUN ln -s /opt/mesosphere/zookeeper /usr/share/zookeeper
 
