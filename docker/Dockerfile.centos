@@ -3,8 +3,7 @@ FROM centos:centos7
 MAINTAINER Nikolay Khabarov <2xl@mail.ru>
 
 ### Environment for mesos.
-ENV MESOS_BUILD_VERSION=0.28.2
-ENV MESOS_FRAMEWORKS_HOME=/opt/mesos/frameworks_home
+ENV MESOSPKG_BUILD_VERSION=0.28.2
 ENV MESOS_LOG_DIR=/var/log/mesos
 ENV MESOS_WORK_DIR=/var/lib/mesos
 
@@ -17,7 +16,7 @@ ENV ZK_CLIENT_PORT=2181
 ### Install mesos and zookeeper.
 RUN OS_VERSION=$(rpm -q --queryformat '%{VERSION}' centos-release) && \
     rpm -Uvh http://repos.mesosphere.io/el/${OS_VERSION}/noarch/RPMS/mesosphere-el-repo-${OS_VERSION}-1.noarch.rpm && \
-    yum install -q -y mesosphere-zookeeper mesos-${MESOS_BUILD_VERSION}
+    yum install -q -y mesosphere-zookeeper mesos-${MESOSPKG_BUILD_VERSION}
 
 # Install ifconfig
 RUN yum install -q -y net-tools

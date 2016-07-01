@@ -1,26 +1,17 @@
 #!/bin/bash
 
 SLAVE_PATH=/usr/sbin/mesos-slave
-PARAMS="--frameworks_home=${MESOS_FRAMEWORKS_HOME}"
-PARAMS="${PARAMS} --log_dir=${MESOS_LOG_DIR}"
-
 mkdir -p ${MESOS_FRAMEWORKS_HOME}
 mkdir -p ${MESOS_LOG_DIR}
 
-if [[ "${MESOS_IP}" ]]; then
-    PARAMS="${PARAMS} --ip=${MESOS_IP}"
-fi
-
-if [[ "${MESOS_HOSTNAME}" ]]; then
-    PARAMS="${PARAMS} --hostname=${MESOS_HOSTNAME}"
-fi
-
-if [[ "${MESOS_PORT}" ]]; then
-    PARAMS="${PARAMS} --port=${MESOS_PORT}"
-fi
-
-if [[ "${MESOS_MASTER}" ]]; then
-    PARAMS="${PARAMS} --master=${MESOS_MASTER}"
-fi
+MESOS_ALL=$(printenv | grep MESOS_)
+for VARVAL in ${MESOS_ALL}
+do
+    VAR=${VARVAL%%=*}
+    ARG=$(echo ${VAR##*MESOS_} | tr '[:upper:]' '[:lower:]')
+    VAL=${VARVAL##*=}
+    PARAMS="${PARAMS} --${ARG}=${VAL}"
+done
 
 ${SLAVE_PATH} ${PARAMS} --no-systemd_enable_support
+echo ${PARAMS}
