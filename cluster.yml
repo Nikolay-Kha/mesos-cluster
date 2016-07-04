@@ -64,7 +64,7 @@ services:
         networks:
             app_net:
                 ipv4_address: 172.16.200.23
-    mesos_cluster_slave:
+    mesos_cluster_slave_1:
         image: mesos_cluster_node
         environment:
             - NODE_MODE=mesos_slave
@@ -72,12 +72,40 @@ services:
             - MESOS_HOSTNAME=172.16.200.31
             - MESOS_MASTER=zk://172.16.200.11:2181,172.16.200.12:2181,172.16.200.13:2181/mesos
             - MESOS_FRAMEWORKS_HOME=/opt/mesos/frameworks_home
-        container_name: mesos_cluster_slave
+        container_name: mesos_cluster_slave_1
         volumes:
-            - /sys/fs/cgroup:/sys/fs/cgroup 
+            - /sys/fs/cgroup:/sys/fs/cgroup
         networks:
             app_net:
                 ipv4_address: 172.16.200.31
+    mesos_cluster_slave_2:
+        image: mesos_cluster_node
+        environment:
+            - NODE_MODE=mesos_slave
+            - MESOS_IP=172.16.200.32
+            - MESOS_HOSTNAME=172.16.200.32
+            - MESOS_MASTER=zk://172.16.200.11:2181,172.16.200.12:2181,172.16.200.13:2181/mesos
+            - MESOS_FRAMEWORKS_HOME=/opt/mesos/frameworks_home
+        container_name: mesos_cluster_slave_2
+        volumes:
+            - /sys/fs/cgroup:/sys/fs/cgroup
+        networks:
+            app_net:
+                ipv4_address: 172.16.200.32
+    mesos_cluster_slave_3:
+        image: mesos_cluster_node
+        environment:
+            - NODE_MODE=mesos_slave
+            - MESOS_IP=172.16.200.33
+            - MESOS_HOSTNAME=172.16.200.33
+            - MESOS_MASTER=zk://172.16.200.11:2181,172.16.200.12:2181,172.16.200.13:2181/mesos
+            - MESOS_FRAMEWORKS_HOME=/opt/mesos/frameworks_home
+        container_name: mesos_cluster_slave_3
+        volumes:
+            - /sys/fs/cgroup:/sys/fs/cgroup
+        networks:
+            app_net:
+                ipv4_address: 172.16.200.33
 
 networks:
     app_net:
